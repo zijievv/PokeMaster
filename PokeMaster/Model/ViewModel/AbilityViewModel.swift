@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+/// Wraps the `Ability`.
 struct AbilityViewModel: Identifiable, Codable {
   let ability: Ability
 

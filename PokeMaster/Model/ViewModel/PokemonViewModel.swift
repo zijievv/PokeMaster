@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+/// Provides all infos needed in every row in the Pokemon list.
 struct PokemonViewModel: Identifiable, Codable {
   var id: Int { pokemon.id }
 

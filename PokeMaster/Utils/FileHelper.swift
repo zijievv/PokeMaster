@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Helps to read and write JSON files.
 enum FileHelper {
   static func loadBundledJSON<T: Decodable>(file: String) -> T {
     guard let url = Bundle.main.url(forResource: file, withExtension: "json") else {
