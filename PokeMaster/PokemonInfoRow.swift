@@ -10,7 +10,7 @@ import SwiftUI
 
 struct PokemonInfoRow: View {
   let model: PokemonViewModel
-  @State var expanded: Bool
+  let expanded: Bool
   
   var body: some View {
     VStack {
@@ -55,6 +55,7 @@ struct PokemonInfoRow: View {
             .modifier(ToolButtonModifier())
         }
       }
+      .padding(.trailing, 10)
       .padding(.bottom, 12)
       .opacity(expanded ? 1.0 : 0.0)
       .frame(maxHeight: expanded ? .infinity : 0)
@@ -62,13 +63,13 @@ struct PokemonInfoRow: View {
     .frame(height: expanded ? 120 : 80)
     .background(PokemonInfoRowBackground(color: model.color))
     .padding(.horizontal)
-    .onTapGesture {
-      withAnimation(
-        .spring(response: 0.55, dampingFraction: 0.425, blendDuration: 0)
-      ) {
-        self.expanded.toggle()
-      }
-    }
+//    .onTapGesture {
+//      withAnimation(
+//        .spring(response: 0.55, dampingFraction: 0.425, blendDuration: 0)
+//      ) {
+//        self.expanded.toggle()
+//      }
+//    }
   }
 }
 
