@@ -63,13 +63,6 @@ struct PokemonInfoRow: View {
     .frame(height: expanded ? 120 : 80)
     .background(PokemonInfoRowBackground(color: model.color))
     .padding(.horizontal)
-//    .onTapGesture {
-//      withAnimation(
-//        .spring(response: 0.55, dampingFraction: 0.425, blendDuration: 0)
-//      ) {
-//        self.expanded.toggle()
-//      }
-//    }
   }
 }
 
