@@ -9,7 +9,12 @@
 import SwiftUI
 
 struct SettingView: View {
+  @EnvironmentObject var store: Store
   @ObservedObject var settings = Settings()
+  
+  var settingsBinding: Binding<AppState.Settings> {
+    $store.appState.settings
+  }
   
   var body: some View {
     Form {
@@ -22,7 +27,9 @@ struct SettingView: View {
 
 struct SettingView_Previews: PreviewProvider {
   static var previews: some View {
-    SettingView()
+    let store = Store()
+    store.appState.settings.sorting = .color
+    return SettingView().environmentObject(store)
   }
 }
 
@@ -54,17 +61,17 @@ extension SettingView {
   
   var optionSection: some View {
     Section(header: Text("Option")) {
-      Toggle(isOn: $settings.showEnglishName) {
+      Toggle(isOn: settingsBinding.showEnglishName) {
         Text("Show English Name")
       }
       
-      Picker(selection: $settings.sorting, label: Text("Sorting by")) {
-        ForEach(Settings.Sorting.allCases, id: \.self) {
+      Picker(selection: settingsBinding.sorting, label: Text("Sorting by")) {
+        ForEach(AppState.Settings.Sorting.allCases, id: \.self) {
           Text($0.text)
         }
       }
       
-      Toggle(isOn: $settings.showFavoriteOnly) {
+      Toggle(isOn: settingsBinding.showFavoriteOnly) {
         Text("Show Favorite Only")
       }
     }

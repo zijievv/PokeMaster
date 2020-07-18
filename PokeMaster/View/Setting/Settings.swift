@@ -27,7 +27,7 @@ class Settings: ObservableObject {
   @Published var showFavoriteOnly = false
 }
 
-extension Settings.Sorting {
+extension AppState.Settings.Sorting {
   var text: String {
     switch self {
     case .id: return "ID"
