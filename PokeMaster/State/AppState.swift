@@ -41,3 +41,14 @@ extension AppState.Settings.AccountBehavior {
     }
   }
 }
+
+extension AppState.Settings.Sorting {
+  var text: String {
+    switch self {
+    case .id: return "ID"
+    case .name: return "Name"
+    case .color: return "Color"
+    case .favorite: return "Favorite"
+    }
+  }
+}

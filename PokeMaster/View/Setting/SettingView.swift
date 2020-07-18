@@ -10,12 +10,15 @@ import SwiftUI
 
 struct SettingView: View {
   @EnvironmentObject var store: Store
-  @ObservedObject var settings = Settings()
-  
+
+  var settings: AppState.Settings {
+    store.appState.settings
+  }
+
   var settingsBinding: Binding<AppState.Settings> {
     $store.appState.settings
   }
-  
+
   var body: some View {
     Form {
       accountSection
@@ -37,20 +40,20 @@ extension SettingView {
   var accountSection: some View {
     Section(header: Text("Account")) {
       Picker(
-        selection: $settings.accountBehavior,
+        selection: settingsBinding.accountBehavior,
         label: Text("")
       ) {
-        ForEach(Settings.AccountBehavior.allCases, id: \.self) {
+        ForEach(AppState.Settings.AccountBehavior.allCases, id: \.self) {
           Text($0.text)
         }
       }
       .pickerStyle(SegmentedPickerStyle())
-      
-      TextField("Email", text: $settings.email)
-      SecureField("Password", text: $settings.password)
+
+      TextField("Email", text: settingsBinding.email)
+      SecureField("Password", text: settingsBinding.password)
       
       if settings.accountBehavior == .register {
-        SecureField("Verify Password", text: $settings.verifyPassword)
+        SecureField("Verify Password", text: settingsBinding.verifyPassword)
       }
       
       Button(settings.accountBehavior.text) {
