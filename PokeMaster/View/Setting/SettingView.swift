@@ -32,6 +32,8 @@ struct SettingView_Previews: PreviewProvider {
   static var previews: some View {
     let store = Store()
     store.appState.settings.sorting = .color
+//    store.appState.settings.loginUser = User(email: "admin@admin.com",
+//                                             favoritePokemonIDs: Set([1,2,3]))
     return SettingView().environmentObject(store)
   }
 }
@@ -39,25 +41,33 @@ struct SettingView_Previews: PreviewProvider {
 extension SettingView {
   var accountSection: some View {
     Section(header: Text("Account")) {
-      Picker(
-        selection: settingsBinding.accountBehavior,
-        label: Text("")
-      ) {
-        ForEach(AppState.Settings.AccountBehavior.allCases, id: \.self) {
-          Text($0.text)
+      if settings.loginUser == nil {
+        Picker(
+          selection: settingsBinding.accountBehavior,
+          label: Text("")
+        ) {
+          ForEach(AppState.Settings.AccountBehavior.allCases, id: \.self) {
+            Text($0.text)
+          }
         }
-      }
-      .pickerStyle(SegmentedPickerStyle())
+        .pickerStyle(SegmentedPickerStyle())
 
-      TextField("Email", text: settingsBinding.email)
-      SecureField("Password", text: settingsBinding.password)
-      
-      if settings.accountBehavior == .register {
-        SecureField("Verify Password", text: settingsBinding.verifyPassword)
-      }
-      
-      Button(settings.accountBehavior.text) {
-        print("Login/Register")
+        TextField("Email", text: settingsBinding.email)
+        SecureField("Password", text: settingsBinding.password)
+        
+        if settings.accountBehavior == .register {
+          SecureField("Verify Password", text: settingsBinding.verifyPassword)
+        }
+        
+        Button(settings.accountBehavior.text) {
+          print("Login/Register")
+        }
+      } else {
+        Text(settings.loginUser!.email)
+        Button(action: { print("Logout") }) {
+          Text("Logout")
+            .foregroundColor(.red)
+        }
       }
     }
   }
