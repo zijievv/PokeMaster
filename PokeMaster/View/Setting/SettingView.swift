@@ -60,7 +60,9 @@ extension SettingView {
         }
         
         Button(settings.accountBehavior.text) {
-          print("Login/Register")
+          self.store.dispatch(
+            .login(email: self.settings.email, password: self.settings.password)
+          )
         }
       } else {
         Text(settings.loginUser!.email)
