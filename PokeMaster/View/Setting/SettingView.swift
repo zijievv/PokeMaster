@@ -35,6 +35,7 @@ struct SettingView_Previews: PreviewProvider {
 //    store.appState.settings.loginUser = User(email: "admin@admin.com",
 //                                             favoritePokemonIDs: Set([1,2,3]))
     return SettingView().environmentObject(store)
+//    small()
   }
 }
 
@@ -59,10 +60,17 @@ extension SettingView {
           SecureField("Verify Password", text: settingsBinding.verifyPassword)
         }
         
-        Button(settings.accountBehavior.text) {
-          self.store.dispatch(
-            .login(email: self.settings.email, password: self.settings.password)
-          )
+        if settings.loginRequesting {
+          HStack {
+            Text(settings.accountBehavior.text)
+            small()
+          }
+        } else {
+          Button(settings.accountBehavior.text) {
+            self.store.dispatch(
+              .login(email: self.settings.email, password: self.settings.password)
+            )
+          }
         }
       } else {
         Text(settings.loginUser!.email)
@@ -98,6 +106,32 @@ extension SettingView {
         Text("Clear Cache")
           .foregroundColor(.red)
       }
+    }
+  }
+}
+
+// swiftui-animation-library
+// SwiftUI Spinners
+//
+// Author: amosgyamfi
+// URL: https://github.com/amosgyamfi/swiftui-animation-library
+struct small: View {
+  @State private var spinSmall = false
+  var body: some View {
+    HStack {
+      Circle() // Small
+        .trim(from: 1/4, to: 1)
+        .stroke(style: StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))
+        .foregroundColor(Color(#colorLiteral(red: 0.6588235294, green: 0.6588235294, blue: 0.6745098039, alpha: 1)))
+        .frame(width: 16, height: 16)
+        .rotationEffect(.degrees(spinSmall ? 360 : 0))
+        .scaleEffect(spinSmall ? 1 : 0.2 )
+        .animation(Animation.easeOut(duration: 1).repeatForever(autoreverses: false))
+        .onAppear() {
+          self.spinSmall.toggle()
+      }
+      
+//      Text("    - Small")
     }
   }
 }
