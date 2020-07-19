@@ -30,6 +30,8 @@ extension AppState {
     var showEnglishName = true
     var sorting = Sorting.id
     var showFavoriteOnly = false
+    
+    @FileStorage(direcotry: .documentDirectory, fileName: "user.json")
     var loginUser: User?
     
     /// A Boolean value indicating whether the request is in progress.
