@@ -31,6 +31,9 @@ extension AppState {
     var sorting = Sorting.id
     var showFavoriteOnly = false
     var loginUser: User?
+    
+    /// A Boolean value indicating whether the request is in progress.
+    var loginRequesting = false
   }
 }
 
