@@ -25,6 +25,10 @@ struct SettingView: View {
       optionSection
       actionSection
     }
+    .alert(item: settingsBinding.loginError) { (error) -> Alert in
+      print("ERROR!!!!!")
+      return Alert(title: Text(error.localizedDescription))
+    }
   }
 }
 
@@ -35,7 +39,6 @@ struct SettingView_Previews: PreviewProvider {
 //    store.appState.settings.loginUser = User(email: "admin@admin.com",
 //                                             favoritePokemonIDs: Set([1,2,3]))
     return SettingView().environmentObject(store)
-//    Spinner()
   }
 }
 

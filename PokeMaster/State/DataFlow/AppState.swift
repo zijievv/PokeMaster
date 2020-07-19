@@ -34,6 +34,7 @@ extension AppState {
     
     /// A Boolean value indicating whether the request is in progress.
     var loginRequesting = false
+    var loginError: AppError?
   }
 }
 
