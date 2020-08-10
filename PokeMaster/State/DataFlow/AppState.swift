@@ -17,23 +17,23 @@ extension AppState {
     enum Sorting: CaseIterable {
       case id, name, color, favorite
     }
-    
+
     enum AccountBehavior: CaseIterable {
       case register, login
     }
-    
+
     var accountBehavior = AccountBehavior.login
     var email = ""
     var password = ""
     var verifyPassword = ""
-    
+
     var showEnglishName = true
     var sorting = Sorting.id
     var showFavoriteOnly = false
-    
+
     @FileStorage(direcotry: .documentDirectory, fileName: "user.json")
     var loginUser: User?
-    
+
     /// A Boolean value indicating whether the request is in progress.
     var loginRequesting = false
     var loginError: AppError?

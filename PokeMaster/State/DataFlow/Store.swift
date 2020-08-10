@@ -10,23 +10,23 @@ import Combine
 
 class Store: ObservableObject {
   @Published var appState = AppState()
-  
+
   func dispatch(_ action: AppAction) {
     #if DEBUG
-    print("[ACTION]: \(action)")
+      print("[ACTION]: \(action)")
     #endif
-    
+
     let result = Store.reduce(state: appState, action: action)
     appState = result.0
-    
+
     if let command = result.1 {
       #if DEBUG
-      print("[COMMAND]: \(command)")
+        print("[COMMAND]: \(command)")
       #endif
       command.execute(in: self)
     }
   }
-  
+
   /// Uses `action` to dispose the current `state` and returns a new state.
   ///
   /// - Parameters:
@@ -40,21 +40,21 @@ class Store: ObservableObject {
   ) -> (AppState, AppCommand?) {
     var appState = state
     var appCommand: AppCommand?
-    
+
     switch action {
-    case .login(let email, let password):
+    case let .login(email, password):
       guard !appState.settings.loginRequesting else {
         break
       }
       appState.settings.loginRequesting = true
       appCommand = LoginAppCommand(email: email, password: password)
-      
-    case .accountBehaviorDone(let result):
+
+    case let .accountBehaviorDone(result):
       appState.settings.loginRequesting = false
       switch result {
-      case .success(let user):
+      case let .success(user):
         appState.settings.loginUser = user
-      case .failure(let error):
+      case let .failure(error):
         appState.settings.loginError = error
       }
     }

@@ -58,11 +58,11 @@ extension SettingView {
 
         TextField("Email", text: settingsBinding.email)
         SecureField("Password", text: settingsBinding.password)
-        
+
         if settings.accountBehavior == .register {
           SecureField("Verify Password", text: settingsBinding.verifyPassword)
         }
-        
+
         if settings.loginRequesting {
           HStack {
             Text(settings.accountBehavior.text)
@@ -71,7 +71,10 @@ extension SettingView {
         } else {
           Button(settings.accountBehavior.text) {
             self.store.dispatch(
-              .login(email: self.settings.email, password: self.settings.password)
+              .login(
+                email: self.settings.email,
+                password: self.settings.password
+              )
             )
           }
         }
@@ -84,28 +87,28 @@ extension SettingView {
       }
     }
   }
-  
+
   var optionSection: some View {
     Section(header: Text("Option")) {
       Toggle(isOn: settingsBinding.showEnglishName) {
         Text("Show English Name")
       }
-      
+
       Picker(selection: settingsBinding.sorting, label: Text("Sorting by")) {
         ForEach(AppState.Settings.Sorting.allCases, id: \.self) {
           Text($0.text)
         }
       }
-      
+
       Toggle(isOn: settingsBinding.showFavoriteOnly) {
         Text("Show Favorite Only")
       }
     }
   }
-  
+
   var actionSection: some View {
     Section {
-      Button(action: { }) {
+      Button(action: {}) {
         Text("Clear Cache")
           .foregroundColor(.red)
       }

@@ -10,11 +10,11 @@ import SwiftUI
 
 struct PokemonInfoPanel: View {
   let model: PokemonViewModel
-  
+
   var abilities: [AbilityViewModel] {
     AbilityViewModel.sample(pokemonID: model.id)
   }
-  
+
   var body: some View {
     VStack(spacing: 20) {
       topIndicator
@@ -34,13 +34,13 @@ struct PokemonInfoPanel: View {
     .cornerRadius(20)
     .fixedSize(horizontal: false, vertical: true)
   }
-  
+
   var topIndicator: some View {
     RoundedRectangle(cornerRadius: 3)
       .frame(width: 40, height: 6)
       .opacity(0.2)
   }
-  
+
   var pokemonDescription: some View {
     Text(model.descriptionText)
       .font(.callout)
@@ -62,55 +62,55 @@ struct PokemonInfoPanel_Previews: PreviewProvider {
 extension PokemonInfoPanel {
   struct Header: View {
     let model: PokemonViewModel
-    
+
     var body: some View {
       HStack(spacing: 18) {
         pokemonIcon
         nameSpecies
-        
+
         verticalDivider
-        
+
         VStack {
           bodyStatus
           typeInfo
         }
       }
     }
-    
+
     var pokemonIcon: some View {
       Image("Pokemon-\(model.id)")
         .resizable()
         .frame(width: 68, height: 68)
         .shadow(color: .black, radius: 5, x: 2, y: 3)
     }
-    
+
     var nameSpecies: some View {
       VStack {
         Text(model.name)
           .font(.system(size: 22))
           .fontWeight(.bold)
           .foregroundColor(model.color)
-        
+
         Text(model.nameEN)
           .font(.system(size: 13))
           .fontWeight(.bold)
           .foregroundColor(model.color)
           .padding(.bottom, 10)
-        
+
         Text(model.genus)
           .font(.system(size: 13))
           .fontWeight(.bold)
           .foregroundColor(.gray)
       }
     }
-    
+
     var verticalDivider: some View {
       RoundedRectangle(cornerRadius: 0.5)
         .foregroundColor(.black)
         .opacity(0.1)
         .frame(width: 1, height: 44)
     }
-    
+
     var bodyStatus: some View {
       VStack(alignment: .leading) {
         HStack {
@@ -122,7 +122,7 @@ extension PokemonInfoPanel {
             .foregroundColor(model.color)
             .frame(alignment: .trailing)
         }
-        
+
         HStack {
           Text("Weight")
             .font(.system(size: 11))
@@ -133,11 +133,11 @@ extension PokemonInfoPanel {
         }
       }
     }
-    
+
     var typeInfo: some View {
       HStack {
         ForEach(model.types, id: \.id) { type in
-          ZStack{
+          ZStack {
             RoundedRectangle(cornerRadius: 7)
               .frame(width: 36, height: 14)
               .foregroundColor(type.color)
@@ -155,13 +155,13 @@ extension PokemonInfoPanel {
   struct AbilityList: View {
     let model: PokemonViewModel
     let abilityModels: [AbilityViewModel]?
-    
+
     var body: some View {
       VStack(alignment: .leading, spacing: 12) {
         Text("技能")
           .font(.headline)
           .fontWeight(.bold)
-        
+
         if abilityModels != nil {
           ForEach(abilityModels!) { ability in
             Text(ability.name)

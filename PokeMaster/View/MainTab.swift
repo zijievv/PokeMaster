@@ -15,7 +15,7 @@ struct MainTab: View {
         Image(systemName: "list.bullet.below.rectangle")
         Text("List")
       }
-      
+
       SettingRootView().tabItem {
         Image(systemName: "gear")
         Text("Setting")

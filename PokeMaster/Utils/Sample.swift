@@ -18,7 +18,8 @@ import Foundation
 
   extension PokemonSpecies {
     static func sample(url: URL) -> PokemonSpecies {
-      return FileHelper.loadBundledJSON(file: "pokemon-species-\(url.extractedID!)")
+      return FileHelper
+        .loadBundledJSON(file: "pokemon-species-\(url.extractedID!)")
     }
   }
 

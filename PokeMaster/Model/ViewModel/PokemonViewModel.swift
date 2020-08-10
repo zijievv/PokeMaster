@@ -35,11 +35,15 @@ struct PokemonViewModel: Identifiable, Codable {
   }
 
   var iconImageURL: URL {
-    URL(string: "https://raw.githubusercontent.com/onevcat/pokemaster-images/master/images/Pokemon-\(id).png")!
+    URL(
+      string: "https://raw.githubusercontent.com/onevcat/pokemaster-images/master/images/Pokemon-\(id).png"
+    )!
   }
 
   var detailPageURL: URL {
-    URL(string: "https://cn.portal-pokemon.com/play/pokedex/\(String(format: "%03d", id))")!
+    URL(
+      string: "https://cn.portal-pokemon.com/play/pokedex/\(String(format: "%03d", id))"
+    )!
   }
 
   var descriptionText: String { species.flavorTextEntries.CN.newlineRemoved }
