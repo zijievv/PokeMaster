@@ -9,16 +9,16 @@
 import SwiftUI
 
 struct PokemonRootView: View {
-  var body: some View {
-    NavigationView {
-      PokemonList()
-        .navigationBarTitle("Pokemons List")
+    var body: some View {
+        NavigationView {
+            PokemonList()
+                .navigationBarTitle("Pokemons List")
+        }
     }
-  }
 }
 
 struct PokemonRootView_Previews: PreviewProvider {
-  static var previews: some View {
-    PokemonRootView()
-  }
+    static var previews: some View {
+        PokemonRootView()
+    }
 }

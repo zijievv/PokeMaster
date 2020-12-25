@@ -9,96 +9,96 @@
 import SwiftUI
 
 struct PokemonInfoRow: View {
-  let model: PokemonViewModel
-  let expanded: Bool
+    let model: PokemonViewModel
+    let expanded: Bool
 
-  var body: some View {
-    VStack {
-      HStack {
-        Image("Pokemon-\(model.id)")
-          .resizable()
-          .frame(width: 50, height: 50)
-          .aspectRatio(contentMode: .fit)
-          .shadow(radius: 4)
+    var body: some View {
+        VStack {
+            HStack {
+                Image("Pokemon-\(model.id)")
+                    .resizable()
+                    .frame(width: 50, height: 50)
+                    .aspectRatio(contentMode: .fit)
+                    .shadow(radius: 4)
 
-        Spacer()
+                Spacer()
 
-        VStack(alignment: .trailing) {
-          Text(model.name)
-            .font(.title)
-            .fontWeight(.black)
-          Text(model.nameEN)
-            .font(.subheadline)
+                VStack(alignment: .trailing) {
+                    Text(model.name)
+                        .font(.title)
+                        .fontWeight(.black)
+                    Text(model.nameEN)
+                        .font(.subheadline)
+                }
+                .foregroundColor(.white)
+                .padding(.trailing, 10)
+            }
+            .padding(.top, 12)
+
+            Spacer()
+
+            HStack(spacing: expanded ? 20 : -30) {
+                Spacer()
+
+                Button(action: { print("fav") }) {
+                    Image(systemName: "star")
+                        .modifier(ToolButtonModifier())
+                }
+
+                Button(action: { print("panel") }) {
+                    Image(systemName: "chart.bar")
+                        .modifier(ToolButtonModifier())
+                }
+
+                Button(action: { print("web") }) {
+                    Image(systemName: "info.circle")
+                        .modifier(ToolButtonModifier())
+                }
+            }
+            .padding(.trailing, 10)
+            .padding(.bottom, 12)
+            .opacity(expanded ? 1.0 : 0.0)
+            .frame(maxHeight: expanded ? .infinity : 0)
         }
-        .foregroundColor(.white)
-        .padding(.trailing, 10)
-      }
-      .padding(.top, 12)
-
-      Spacer()
-
-      HStack(spacing: expanded ? 20 : -30) {
-        Spacer()
-
-        Button(action: { print("fav") }) {
-          Image(systemName: "star")
-            .modifier(ToolButtonModifier())
-        }
-
-        Button(action: { print("panel") }) {
-          Image(systemName: "chart.bar")
-            .modifier(ToolButtonModifier())
-        }
-
-        Button(action: { print("web") }) {
-          Image(systemName: "info.circle")
-            .modifier(ToolButtonModifier())
-        }
-      }
-      .padding(.trailing, 10)
-      .padding(.bottom, 12)
-      .opacity(expanded ? 1.0 : 0.0)
-      .frame(maxHeight: expanded ? .infinity : 0)
+        .frame(height: expanded ? 120 : 80)
+        .background(PokemonInfoRowBackground(color: model.color))
+        .padding(.horizontal)
     }
-    .frame(height: expanded ? 120 : 80)
-    .background(PokemonInfoRowBackground(color: model.color))
-    .padding(.horizontal)
-  }
 }
 
 struct PokemonInfoRow_Previews: PreviewProvider {
-  static var previews: some View {
-    VStack {
-      PokemonInfoRow(model: .sample(id: 1), expanded: false)
-      PokemonInfoRow(model: .sample(id: 21), expanded: true)
-      PokemonInfoRow(model: .sample(id: 25), expanded: false)
+    static var previews: some View {
+        VStack {
+            PokemonInfoRow(model: .sample(id: 1), expanded: false)
+            PokemonInfoRow(model: .sample(id: 21), expanded: true)
+            PokemonInfoRow(model: .sample(id: 25), expanded: false)
+        }
     }
-  }
 }
 
 struct ToolButtonModifier: ViewModifier {
-  func body(content: Content) -> some View {
-    content
-      .font(.system(size: 25))
-      .foregroundColor(.white)
-      .frame(width: 30, height: 30)
-  }
+    func body(content: Content) -> some View {
+        content
+            .font(.system(size: 25))
+            .foregroundColor(.white)
+            .frame(width: 30, height: 30)
+    }
 }
 
 struct PokemonInfoRowBackground: View {
-  var color: Color
+    var color: Color
 
-  var body: some View {
-    ZStack {
-      RoundedRectangle(cornerRadius: 20)
-        .stroke(color, style: StrokeStyle(lineWidth: 4))
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 20)
+                .stroke(color, style: StrokeStyle(lineWidth: 4))
 
-      RoundedRectangle(cornerRadius: 20)
-        .fill(
-          LinearGradient(gradient: Gradient(colors: [.white, color]),
-                         startPoint: .leading,
-                         endPoint: .trailing)
-        )
+            RoundedRectangle(cornerRadius: 20)
+                .fill(
+                    LinearGradient(gradient: Gradient(colors: [.white, color]),
+                                   startPoint: .leading,
+                                   endPoint: .trailing)
+                )
+        }
     }
-  }
 }

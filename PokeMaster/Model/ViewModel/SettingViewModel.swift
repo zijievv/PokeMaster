@@ -9,40 +9,40 @@
 import SwiftUI
 
 class Settings: ObservableObject {
-  enum AccountBehavior: CaseIterable {
-    case register, login
-  }
+    enum AccountBehavior: CaseIterable {
+        case register, login
+    }
 
-  enum Sorting: CaseIterable {
-    case id, name, color, favorite
-  }
+    enum Sorting: CaseIterable {
+        case id, name, color, favorite
+    }
 
-  @Published var accountBehavior = AccountBehavior.login
-  @Published var email = ""
-  @Published var password = ""
-  @Published var verifyPassword = ""
+    @Published var accountBehavior = AccountBehavior.login
+    @Published var email = ""
+    @Published var password = ""
+    @Published var verifyPassword = ""
 
-  @Published var showEnglishName = true
-  @Published var sorting = Sorting.id
-  @Published var showFavoriteOnly = false
+    @Published var showEnglishName = true
+    @Published var sorting = Sorting.id
+    @Published var showFavoriteOnly = false
 }
 
 extension Settings.Sorting {
-  var text: String {
-    switch self {
-    case .id: return "ID"
-    case .name: return "Name"
-    case .color: return "Color"
-    case .favorite: return "Favorite"
+    var text: String {
+        switch self {
+        case .id: return "ID"
+        case .name: return "Name"
+        case .color: return "Color"
+        case .favorite: return "Favorite"
+        }
     }
-  }
 }
 
 extension Settings.AccountBehavior {
-  var text: String {
-    switch self {
-    case .register: return "Register"
-    case .login: return "Login"
+    var text: String {
+        switch self {
+        case .register: return "Register"
+        case .login: return "Login"
+        }
     }
-  }
 }

@@ -9,51 +9,51 @@
 import SwiftUI
 
 struct PokemonList: View {
-  @State var expandingIndex: Int?
-  @State var searchText: String = ""
+    @State var expandingIndex: Int?
+    @State var searchText: String = ""
 
-  init() {
-    if #available(iOS 14.0, *) {
-      // iOS 14 doesn't have extra separators below the list by default.
-    } else {
-      // To remove only seerators below the list
-      UITableView.appearance().tableFooterView = UIView()
+    init() {
+        if #available(iOS 14.0, *) {
+            // iOS 14 doesn't have extra separators below the list by default.
+        } else {
+            // To remove only seerators below the list
+            UITableView.appearance().tableFooterView = UIView()
+        }
+
+        // To remove all separators including the actual ones:
+        UITableView.appearance().separatorStyle = .none
     }
 
-    // To remove all separators including the actual ones:
-    UITableView.appearance().separatorStyle = .none
-  }
-
-  var body: some View {
-    VStack {
-      HStack {
-        Image(systemName: "magnifyingglass")
-          .font(.title)
-        TextField("Search", text: $searchText)
-          .font(.body)
-          .textFieldStyle(RoundedBorderTextFieldStyle())
-      }
-      .frame(minWidth: 0, maxWidth: .infinity, alignment: .bottomLeading)
-      .padding(.horizontal)
-      .padding(.horizontal)
-
-      List(PokemonViewModel.all) { pokemon in
-        PokemonInfoRow(
-          model: pokemon,
-          expanded: self.expandingIndex == pokemon.id
-        )
-        .onTapGesture {
-          withAnimation(
-            .spring(response: 0.55, dampingFraction: 0.425, blendDuration: 0)
-          ) {
-            if self.expandingIndex == pokemon.id {
-              self.expandingIndex = nil
-            } else {
-              self.expandingIndex = pokemon.id
+    var body: some View {
+        VStack {
+            HStack {
+                Image(systemName: "magnifyingglass")
+                    .font(.title)
+                TextField("Search", text: $searchText)
+                    .font(.body)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
             }
-          }
-        }
-      }
+            .frame(minWidth: 0, maxWidth: .infinity, alignment: .bottomLeading)
+            .padding(.horizontal)
+            .padding(.horizontal)
+
+            List(PokemonViewModel.all) { pokemon in
+                PokemonInfoRow(
+                    model: pokemon,
+                    expanded: self.expandingIndex == pokemon.id
+                )
+                .onTapGesture {
+                    withAnimation(
+                        .spring(response: 0.55, dampingFraction: 0.425, blendDuration: 0)
+                    ) {
+                        if self.expandingIndex == pokemon.id {
+                            self.expandingIndex = nil
+                        } else {
+                            self.expandingIndex = pokemon.id
+                        }
+                    }
+                }
+            }
 //      .overlay(
 //        VStack {
 //          Spacer()
@@ -65,12 +65,12 @@ struct PokemonList: View {
 //        }
 //        .edgesIgnoringSafeArea(.bottom)
 //      )
+        }
     }
-  }
 }
 
 struct PokemonList_Previews: PreviewProvider {
-  static var previews: some View {
-    PokemonList()
-  }
+    static var previews: some View {
+        PokemonList()
+    }
 }

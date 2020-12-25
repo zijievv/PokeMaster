@@ -10,41 +10,41 @@ import Combine
 import Foundation
 
 protocol AppCommand {
-  func execute(in store: Store)
+    func execute(in store: Store)
 }
 
 struct LoginAppCommand: AppCommand {
-  let email: String
-  let password: String
+    let email: String
+    let password: String
 
-  func execute(in store: Store) {
-    let token = SubscriptionToken()
+    func execute(in store: Store) {
+        let token = SubscriptionToken()
 
-    LoginRequest(email: email, password: password)
-      .publisher
-      .sink(receiveCompletion: { complete in
-        if case let .failure(error) = complete {
-          store.dispatch(.accountBehaviorDone(result: .failure(error)))
-        }
-        token.unseal()
-      }, receiveValue: { user in
-        store.dispatch(.accountBehaviorDone(result: .success(user)))
-      })
-      .seal(in: token)
-  }
+        LoginRequest(email: email, password: password)
+            .publisher
+            .sink(receiveCompletion: { complete in
+                if case let .failure(error) = complete {
+                    store.dispatch(.accountBehaviorDone(result: .failure(error)))
+                }
+                token.unseal()
+            }, receiveValue: { user in
+                store.dispatch(.accountBehaviorDone(result: .success(user)))
+            })
+            .seal(in: token)
+    }
 }
 
 /// Persist in holding the `AnyCancellable ` value.
 class SubscriptionToken {
-  var cancellable: AnyCancellable?
-  func unseal() {
-    cancellable = nil
-  }
+    var cancellable: AnyCancellable?
+    func unseal() {
+        cancellable = nil
+    }
 }
 
 extension AnyCancellable {
-  /// Seals the `AnyCancellable` value into the `SubscriptionToken` token.
-  func seal(in token: SubscriptionToken) {
-    token.cancellable = self
-  }
+    /// Seals the `AnyCancellable` value into the `SubscriptionToken` token.
+    func seal(in token: SubscriptionToken) {
+        token.cancellable = self
+    }
 }
